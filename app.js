@@ -4,8 +4,19 @@ import fs from 'fs'
 const app = express()
 const port = 3200;
 
-app.get('/', (req, res)=> {
-    getData()
+app.get('/banner', (req, res)=> {
+    const data = getData('./data/Banner.json');
+    res.json(data);
+})
+
+app.get('/category', (req, res)=> {
+    const data = getData('./data/Category.json');
+    res.json(data);
+})
+
+app.get('/product', (req, res)=> {
+    const data = getData('./data/Product.json');
+    res.json(data);
 })
 
 app.listen(port, ()=> {
@@ -13,7 +24,7 @@ app.listen(port, ()=> {
 })
 
 
-const getData = ()=> {
-    const data = fs.readFileSync('./data/Banner.json', 'utf-8', (err, data)=> data)
-    console.log(data)
+const getData = (path)=> {
+    const data = fs.readFileSync(path, 'utf-8', (err, data)=> data)
+    return JSON.parse(data)
 }
